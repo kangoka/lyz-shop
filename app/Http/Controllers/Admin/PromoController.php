@@ -18,28 +18,22 @@ use DateTimeZone;
 class PromoController extends Controller
 {
     public function index() {
-        $data = Promo::latest()->paginate(5);
+        $data = Promo::latest()->get();
 
-        $data_product = Product::get();
-        $category = Category::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.promo.index', compact('data', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.promo.index', [
+            'data' => $data,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
     
     public function create() {
-        
-        $category = Category::get();
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.promo.create', compact('count_transaction', 'count_product', 'count_category'));
+        return view('admin.promo.create', [
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function insert(Request $request) {
@@ -57,15 +51,13 @@ class PromoController extends Controller
 
     public function edit($id) {
         $data = Promo::find($id);
-        $category = Category::get();
 
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.promo.edit', compact('data', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.promo.edit', [
+            'data' => $data,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function update(Request $request, $id) {

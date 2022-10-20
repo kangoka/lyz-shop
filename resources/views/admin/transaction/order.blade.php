@@ -26,7 +26,7 @@
                                     <span><strong class="mr-2">Tangal</strong><time>{{ $datas->created_at }}</time> </span>
                                     <span class="status"><strong class="mr-2">Status</strong>{{ $datas->payment_status ?? '' }}</span>
                                     <span class="location"><strong class="mr-2">Harga</strong>Rp. {{ number_format($datas->Product->price, 0, '', '.') }}</span>
-                                    <span class="location"><strong class="mr-2">User</strong>{{ $datas->user_id }}</span>
+                                    <span class="location"><strong class="mr-2">User</strong>{{ $datas->User->name }} ({{ $datas->user_id }})</span>
                                 </td>
                                 <td class="action" data-title="Action">
                                     <div class="">

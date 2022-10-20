@@ -18,7 +18,9 @@
                         <ul class="category-list">
                             <li><a href="{{ route('shop.all') }}">Semua <span>{{ $all }}</span></a></li>
                             @foreach ($category as $category)
-                                <li><a href="/shop/{{ $category->name }}">{{ $category->name }} <span>{{ count(App\Models\Product::with('Category')->get()->where('category_id', $category->id)) }}</span></a></li>
+                                @if (count(App\Models\Product::with('Category')->get()->where('category_id', $category->id)->where('is_listed', 1)->where('stock', '>', 0)) > 0)
+                                    <li><a href="/shop/{{ $category->name }}">{{ $category->name }} <span>{{ count(App\Models\Product::with('Category')->get()->where('category_id', $category->id)->where('is_listed', 1)->where('stock', '>', 0)) }}</span></a></li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>

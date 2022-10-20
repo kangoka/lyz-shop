@@ -13,27 +13,20 @@ use Str;
 class CategoryController extends Controller
 {
     public function index() {
-        $data = Category::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($data);
-        return view('admin.category.index', compact('data', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.category.index', [
+            'data' => $this->category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
     
     public function create() {
-        $category = Category::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.category.create', compact('count_transaction', 'count_product', 'count_category'));
+        return view('admin.category.create', [
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function insert(Request $request) {
@@ -50,15 +43,14 @@ class CategoryController extends Controller
 
     public function edit($id) {
         $data = Category::find($id);
-        $category = Category::get();
 
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.category.edit', compact('data', 'category', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.category.edit', [
+            'data' => $data,
+            'category' => $this->category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function update(Request $request, $id) {

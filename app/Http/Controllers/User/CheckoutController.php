@@ -16,30 +16,14 @@ use Str;
 
 class CheckoutController extends Controller
 {
-    public function __construct()
-    {
-        Midtrans\Config::$serverKey = env('MIDTRANS_SERVERKEY');
-        Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
-        Midtrans\Config::$isSanitized = env('MIDTRANS_IS_SANITIZED');
-        Midtrans\Config::$is3ds = env('MIDTRANS_IS_3DS');
-    }
-
     public function deliverGet($id) {
         $data = Checkout::find($id);
 
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-        $data_product = Product::get();
-        $data_category = Category::get();
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($data_category);
-
-        return view('admin.send', [
-            'data'              => $data,
-            'count_transaction' => $count_transaction,
-            'count_product'     => $count_product,
-            'count_category'    => $count_category,
+        return view('admin.transaction.send', [
+            'data' => $data,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
         ]);
     }
 
@@ -74,7 +58,13 @@ class CheckoutController extends Controller
         
         if ((strlen($data['code']) < 9) && $data['code'] != null || strlen($data['code']) > 9) {
             return 'Ngapain?';
-        }          
+        }
+
+        $check = Checkout::where('user_id', Auth::id())->where('payment_status', 'waiting')->get();
+        if ((count($check) + 1) > 5) {
+            return redirect(route('user.transaction.waiting'))->with('error', ['Kamu memiliki 5 pemesanan yang belum dibayar, silakan menyelesaikan pembayaran untuk pesanan sebelumnya']);
+        }
+        
         $data['user_id'] = Auth::id();
         $data['product_id'] = $product->id;
         $data['quantity'] = intval($data['quantity']);
@@ -179,7 +169,8 @@ class CheckoutController extends Controller
                 $checkout->payment_status = 'paid';
                 if ($checkout->is_increased == 0){
                     $checkout_increased = Checkout::find($checkout_id->first()->id)->increment('is_increased');
-                    $product = Product::find($checkout->product_id)->increment('sold');
+                    $product = Product::find($checkout->product_id)->increment('sold', $checkout->quantity);
+                    $product = Product::find($checkout->product_id)->decrement('stock', $checkout->quantity);
                 }
             }
         }
@@ -198,7 +189,8 @@ class CheckoutController extends Controller
             $checkout->payment_status = 'paid';
             if ($checkout->is_increased == 0){
                 $checkout_increased = Checkout::find($checkout_id->first()->id)->increment('is_increased');
-                $product = Product::find($checkout->product_id)->increment('sold');
+                $product = Product::find($checkout->product_id)->increment('sold', $checkout->quantity);
+                $product = Product::find($checkout->product_id)->decrement('stock', $checkout->quantity);
             }
         }
         else if ($transaction_status == 'pending') {
@@ -209,6 +201,6 @@ class CheckoutController extends Controller
         }
 
         $checkout->save();
-        return redirect(route('user.transaction.success'));
+        return redirect(route('user.transaction'));
     }
 }

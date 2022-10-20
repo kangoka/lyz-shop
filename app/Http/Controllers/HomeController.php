@@ -16,7 +16,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $product = Product::with('Category')->where('is_listed', 1)->orderBy('sold', 'desc')->get()->take(5);
+        $product = Product::with('Category')->where('is_listed', 1)->where('stock', '>', 0)->orderBy('sold', 'desc')->get()->take(5);
         $promo = Promo::latest()->take(1)->get()->first();
         $date_now = (new DateTime("now", new DateTimeZone('Asia/Jakarta')))->format("Y-m-d\TH:i:s");
         $expired = date("Y-m-d\TH:i:s", strtotime($promo->expired_at));
@@ -29,6 +29,7 @@ class HomeController extends Controller
                 'is_expired' => 1
             ]);
         }
+        
         return view('welcome', [
             'product'    => $product,
             'promo'      => $promo,

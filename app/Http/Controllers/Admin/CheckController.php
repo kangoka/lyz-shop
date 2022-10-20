@@ -13,17 +13,10 @@ class CheckController extends Controller
 {
     public function orderPage()
     {
-        $data_product = Product::get();
-        $category = Category::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
         return view('admin.check.order', [
-            'count_transaction' => $count_transaction,
-            'count_product'     => $count_product,
-            'count_category'    => $count_category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
         ]);
     }
 

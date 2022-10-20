@@ -14,55 +14,56 @@ use File;
 
 class BlogController extends Controller
 {
+    
     public function index() {
         $data = Post::where('status', 1)->latest()->paginate(5);
-        $category = BlogCategory::get();
-        return view('blog', compact('data', 'category'));
+
+        return view('blog', [
+            'data' => $data,
+            'category' => $this->blog_category
+        ]);
     }
 
     public function blog_page(Post $post) {
         $data = Post::get()->where('slug', $post->slug);
-
         $data->first()->increment('views');
-        $category = BlogCategory::get();
-        return view('blog_view', compact('data', 'category'));
+
+        return view('blog_view', [
+            'data' => $data,
+            'category' => $this->blog_category
+        ]);
     }
 
     public function blog_category($category) {
         $category = BlogCategory::get()->where('name', $category);
         $data = Post::where('category_id', $category->first()->id)->where('status', 1)->paginate(5);
-        $category = BlogCategory::get();
         
         return view('blog', [
-            'data'               => $data,
-            'category'           => $category,
+            'data' => $data,
+            'category' => $this->blog_category
         ]);
     }
 
     // Post
     public function index_post() {
-        $data_product = Product::get();
         $data = Post::paginate(5);
-        $category = Category::get();
 
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.blog.post.index', compact('data', 'category', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.blog.post.index', [
+            'data' => $data,
+            'category' => $this->category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function create_post() {
-        $category = BlogCategory::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.blog.post.create', compact('category', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.blog.post.create', [
+            'category' => $this->blog_category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function insert_post(Request $request) {
@@ -87,15 +88,14 @@ class BlogController extends Controller
 
     public function edit_post($id) {
         $data = Post::find($id);
-        $category = BlogCategory::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.blog.post.edit', compact('data', 'category', 'count_transaction', 'count_product', 'count_category'));
+        
+        return view('admin.blog.post.edit', [
+            'data' => $data,
+            'category' => $this->category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function update_post(Request $request, $id) {
@@ -143,27 +143,20 @@ class BlogController extends Controller
 
     // Category
     public function index_category() {
-        $data = BlogCategory::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($data);
-        return view('admin.blog.category.index', compact('data', 'count_transaction', 'count_product', 'count_category'));
+        return view('admin.blog.category.index', [
+            'data' => $this->blog_category,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function create_category() {
-        $category = Category::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.blog.category.create', compact('count_transaction', 'count_product', 'count_category'));
+        return view('admin.blog.category.create', [
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function insert_category(Request $request) {
@@ -180,15 +173,13 @@ class BlogController extends Controller
 
     public function edit_category($id) {
         $data = BlogCategory::find($id);
-        $category = Category::get();
-
-        $data_product = Product::get();
-        $data_transaction = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-
-        $count_transaction = count($data_transaction);
-        $count_product = count($data_product);
-        $count_category = count($category);
-        return view('admin.blog.category.edit', compact('data', 'category', 'count_transaction', 'count_product', 'count_category'));
+        
+        return view('admin.blog.category.edit', [
+            'data' => $data,
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
     }
 
     public function update_category(Request $request, $id) {

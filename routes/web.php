@@ -46,8 +46,8 @@ Route::get('sign-in-google', [UserController::class, 'google'])->name('login');
 Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
 
 // Midtrans routes
-Route::get('payment/success', [CheckoutController::class, 'midtransCallback']);
-Route::post('payment/success', [CheckoutController::class, 'midtransCallback']);
+Route::get('payment', [CheckoutController::class, 'midtransCallback']);
+Route::post('payment', [CheckoutController::class, 'midtransCallback']);
 
 Route::middleware(['auth'])->group(function() {
     // Checkout routes
@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->middleware('ensureUserRole:admin')->group(function(){
         Route::get('/', [AdminDashboard::class, 'index'])->name('dashboard');
         Route::get('/order', [AdminDashboard::class, 'order'])->name('order');
+        Route::get('/order/all', [AdminDashboard::class, 'orderAll'])->name('order.all');
 
         Route::get('/send/{id}', [CheckoutController::class, 'deliverGet'])->name('send.get');
         Route::post('/send/{id}', [CheckoutController::class, 'deliverStore'])->name('send.deliver');

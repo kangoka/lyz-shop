@@ -12,21 +12,8 @@ use Str;
 
 class ProductController extends Controller
 {
-    protected $category;
-    protected $count_transaction;
-    protected $count_product;
-    protected $count_category;
-
-    public function __construct()
-    {
-        $this->category = Category::get();
-        $this->count_transaction = count(Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0));
-        $this->count_product = count(Product::get());
-        $this->count_category = count(Category::get());
-    }
-
     public function index() {
-        $data = Product::paginate(5);
+        $data = Product::get();
         
         return view('admin.product.index', [
             'data' => $data,

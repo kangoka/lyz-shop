@@ -37,7 +37,7 @@
                         <li class="list-inline-item">{{ date('d M Y', strtotime($post->created_at)) }}</li>
                     </ul>
                     <!-- Post Description -->
-                    <p>{!! substr($post->content, 0, 300) !!}</p>
+                    <p>{!! substr($post->content, 0, 300) !!}..</p>
                     <!-- Read more button -->
                     <a href="/blog/{{ $post->slug }}" class="btn btn-transparent">Baca Selengkapnya</a>
                 </article>
@@ -62,7 +62,9 @@
                         <h5 class="widget-header">Kategori</h5>
                         <ul class="category-list">
                             @foreach ($category as $cat)
-                            <li><a href="/blog/category/{{ $cat->name }}">{{ $cat->name }} <span class="float-right">({{ count(App\Models\Post::with('BlogCategory')->get()->where('category_id', $cat->id)->where('status', 1)) }})</span></a></li>
+                            @if (count(App\Models\Post::with('BlogCategory')->get()->where('category_id', $cat->id)->where('status', 1)) > 0)
+                                <li><a href="/blog/category/{{ $cat->name }}">{{ $cat->name }} <span class="float-right">({{ count(App\Models\Post::with('BlogCategory')->get()->where('category_id', $cat->id)->where('status', 1)) }})</span></a></li>
+                            @endif
                             @endforeach
                         </ul>
                     </div>

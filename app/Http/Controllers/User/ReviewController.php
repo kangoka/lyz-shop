@@ -21,9 +21,9 @@ class ReviewController extends Controller
             return view('errors.404');
         }
 
-        $data_waiting = Checkout::with('Product')->get()->where('payment_status', 'waiting')->where('is_delivered', 0);
-        $data_success = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0);
-        $data_complete = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 1);
+        $data_waiting = Checkout::with('Product')->where('user_id', Auth::id())->get()->where('payment_status', 'waiting')->where('is_delivered', 0);
+        $data_success = Checkout::with('Product')->where('user_id', Auth::id())->get()->where('payment_status', 'paid')->where('is_delivered', 0);
+        $data_complete = Checkout::with('Product')->where('user_id', Auth::id())->get()->where('payment_status', 'paid')->where('is_delivered', 1);
         $data_failed = Checkout::with('Product')->where('user_id', Auth::id())->where('payment_status', 'failed')->orWhere('payment_status', 'expire')->get();
 
         $count_waiting = count($data_waiting);

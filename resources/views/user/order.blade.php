@@ -41,6 +41,16 @@
                 <!-- Recently Favorited -->
                 <div class="widget dashboard-container my-adslist">
                     <h3 class="widget-header">Transaksi</h3>
+                    <?php if (session()->has('error')) : ?>
+                        <div class="alert alert-danger">
+                            <p class="h3 text-black">Kesalahan</p>
+                            <ul>
+                                <?php foreach (session('error') as $error) : ?>
+                                <li><?= $error ?></li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    <?php endif ?>
                     <table class="table table-responsive product-dashboard-table">
                         <thead>
                             <tr>
@@ -63,6 +73,8 @@
                                     </span>
                                     <span class="status"><strong
                                             class="mr-2">Status</strong>{{ $data->payment_status ?? '' }}</span>
+                                    <span class="status"><strong
+                                            class="mr-2">Kuantitas</strong>{{ $data->quantity ?? '' }}</span>
                                     <span class="location"><strong class="mr-2">Harga</strong>Rp.
                                         {{ number_format($data->price, 0, '', '.') }}</span>
                                 </td>
