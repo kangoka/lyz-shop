@@ -96,8 +96,18 @@
                 <div class="col-md-4">
                     <div class="sidebar">
                         <div class="widget price text-center" id="check">
-                            <h4>Harga</h4>
-                            <p>Rp. {{ number_format($product->first()->price, 0, '', '.') }}</p>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h4>Harga</h4>
+                                    <p>{{ number_format($product->first()->price, 0, '', '.') }}</p>
+                                </div>
+                                <div class="col-sm">
+                                    <h4>Stok</h4>
+                                    <p>{{ $product->first()->stock }}</p>
+                                </div>
+                                </div>
+                            </div>
+                            
                         </div>
                         <!-- User Profile widget -->
                         <div class="widget user text-center">
@@ -108,9 +118,6 @@
                                             class="basic-form" method="post">
                                             @csrf
                                             <li class="list-inline-item">
-                                                <label for="quantity" class="col-6"><strong>Jumlah (stok: {{ $product->first()->stock }})</strong></label>
-                                                <input class="border p-1 w-50 my-2 col-6" type="number" name="quantity" id="quantity" value="1" min="1" max="{{ $product->first()->stock }}"
-                                                    style="text-align: center">
                                                 <?php if (session()->has('errors')) : ?>
                                                     <div class="alert alert-danger">
                                                         <p class="h3 text-black">Kesalahan</p>
@@ -122,9 +129,23 @@
                                                     </div>
                                                 <?php endif ?>
                                             </li>
-                                            <label for="code" class="col-6"><strong>Kode Promo</strong></label>
-                                            <input class="border p-1 w-50 my-2 col-6" type="text" name="code" id="code"
-                                                style="text-align: center" maxlength="9">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="quantity" class="col-6"><strong>Jumlah</strong></label>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="code" class="text-justify col-6"><strong>Kode Promo</strong></label>
+                                                </div>
+                                                <div class="w-100"></div>
+                                                <div class="col">
+                                                    <input class="border p-1 w-50 my-2 col-6" type="number" name="quantity" id="quantity" value="1" min="1" max="{{ $product->first()->stock }}"
+                                                    style="text-align: center">
+                                                </div>
+                                                <div class="col"> 
+                                                    <input class="border p-1 w-50 my-2 col-6" type="text" name="code" id="code"
+                                                    style="text-align: center" maxlength="9">
+                                                </div>
+                                            </div>
                                             <br>
                                             <a href="#check" onclick="checkCode()">Cek kode</a>
                                             <p id="result"></p>

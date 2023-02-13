@@ -39,7 +39,11 @@
                                             <span class="status" style="color: red"><strong>Status</strong>Unlisted</span>
                                         @endif
                                         <span class="location"><strong>Harga</strong>{{ $product->price }}</span>
-                                        <span class="location"><strong>Stock</strong>{{ $product->stock }}</span>
+                                        @if ($product->stock > 1)
+                                            <span class="location"><strong>Stock</strong>{{ $product->stock }}</span>
+                                        @else
+                                            <span class="location" style="color: red"><strong>Stock</strong>{{ $product->stock }}</span>
+                                        @endif
                                         <span class="location"><strong>Dibeli</strong>{{ $product->sold }} kali</span>
                                         <span class="location"><strong>Dilihat</strong>{{ $product->views }} kali</span>
                                     </td>

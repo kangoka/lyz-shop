@@ -39,6 +39,7 @@ Route::get('blog/category/{BlogCategory:name}', [BlogController::class, 'blog_ca
 Route::get('/shop/product/{product:slug}', [ProductPageController::class, 'page'])->name('product.page');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
+Route::get('/shop/sort/{sort}', [ShopController::class, 'sort'])->name('shop.sort');
 Route::get('/shop/{category:name}', [ShopController::class, 'category'])->name('shop.category');
 Route::get('/promo/check/{code}/{user:id}', [PromoController::class, 'checkCode'])->name('promo.check');
 

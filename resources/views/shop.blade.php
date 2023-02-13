@@ -27,19 +27,22 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <div class="category-search-filter">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Tampilkan</strong>
-                            <select id="sort">
-                                <option>Terbaru</option>
-                                <option value="1">Populer</option>
-                                <option value="2">Harga Terendah</option>
-                                <option value="3">Harga Termahal</option>
-                            </select>
+                {{-- {{ dd($product) }} --}}
+                @if ($count > 8)
+                    <div class="category-search-filter">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Tampilkan</strong>
+                                <select id="sort">
+                                    <option value="newest">Terbaru</option>
+                                    <option value="popular">Populer</option>
+                                    <option value="lowest">Harga Terendah</option>
+                                    <option value="highest">Harga Termahal</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 <div class="product-grid-list">
                     <div class="row mt-30">
                         @foreach ($product as $product)
@@ -84,4 +87,19 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('js')
+<script>
+    $("#sort").change(function(){
+        if ($(this).val().toLowerCase() == 'popular') {
+            return window.location.replace("/shop/sort/popular");
+        } else if ($(this).val().toLowerCase() == 'lowest') {
+            return window.location.replace("/shop/sort/lowest");
+        } else if ($(this).val().toLowerCase() == 'highest') {
+            return window.location.replace("/shop/sort/highest");
+        }
+        window.location.replace("/shop/newest");
+    });
+</script>
 @endsection
