@@ -72,8 +72,8 @@
                                                 <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
                                                 <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
                                             </ul>
-                                        </div> 
-                                    </div> --}}
+                                        </div>  --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
