@@ -201,6 +201,6 @@ class CheckoutController extends Controller
         }
 
         $checkout->save();
-        return redirect(route('user.transaction'));
+        return redirect(route('user.transaction.waiting'));
     }
 }

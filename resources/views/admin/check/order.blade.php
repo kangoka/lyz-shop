@@ -60,7 +60,7 @@
                         rating = 'Belum ada review'
                         comment = 'Belum ada review'
                     } else {
-                        rating = data[0].review.rating
+                        rating = getRating(data[0].review.rating)
                         comment = data[0].review.comment
                     }
 
@@ -90,7 +90,7 @@
                     '<strong>Detail Pesanan</strong><br>' + 
                     orderDetail + '<br>' +
                     '<strong>Review</strong><br>' + 
-                    'Rating: ' + rating + '<br>' +
+                    rating +
                     'Komentar: ' + comment + 
                     '</div>'
 
@@ -116,6 +116,21 @@
                     }
                 }
             })
+    }
+
+    function getRating(rating) {
+        let star = ''
+        for (let i = 1; i <= rating; i++) {
+            star += '<li class="list-inline-item selected"><i class="fa fa-star"></i></li>'
+        }
+
+        let res = `<div class="product-ratings">
+                        <ul class="list-inline">
+                            ${star}
+                        </ul>
+                    </div>`
+
+        return res
     }
 </script>
 @endsection

@@ -116,7 +116,8 @@ Route::middleware(['auth'])->group(function() {
         //Check
         Route::get('/check/order', [CheckController::class, 'orderPage'])->name('check.order');
         Route::get('/check/orderf/{code}', [CheckController::class, 'order'])->name('check.order.fetch');
-        Route::get('/check/user', [CheckController::class, 'user'])->name('check.user');
+        Route::get('/check/user', [CheckController::class, 'userPage'])->name('check.user');
+        Route::get('/check/userf/{id}', [CheckController::class, 'user'])->name('check.user.fetch');
     });
 });
 

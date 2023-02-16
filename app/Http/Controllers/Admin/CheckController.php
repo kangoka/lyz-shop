@@ -26,8 +26,18 @@ class CheckController extends Controller
         return $data;
     }
 
-    public function user()
+    public function userPage()
     {
-        return view('admin.check.user');
+        return view('admin.check.user', [
+            'count_transaction' => $this->count_transaction,
+            'count_product' => $this->count_product,
+            'count_category' => $this->count_category
+        ]);
+    }
+
+    public function user($id)
+    {
+        $data = Checkout::with('Product', 'User', 'Review')->where('user_id', $id)->take(6)->get();
+        return $data;
     }
 }

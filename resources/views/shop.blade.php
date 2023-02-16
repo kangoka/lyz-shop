@@ -64,7 +64,7 @@
                                                 <a href="/shop/{{ $product->Category->name }}"><i class="fa fa-folder-open-o"></i>{{ $product->Category->name }}</a>
                                             </li>
                                         </ul>
-                                        <!-- <div class="product-ratings">
+                                       {{-- <div class="product-ratings">
                                             <ul class="list-inline">
                                                 <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
                                                 <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
@@ -72,8 +72,8 @@
                                                 <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
                                                 <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
                                             </ul>
-                                        </div> -->
-                                    </div>
+                                        </div> 
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

@@ -28,7 +28,7 @@
                 <article>
                     <!-- Post Image -->
                     <div class="image">
-                        <img src="{{ url($post->image) }}" alt="Gambar postingan">
+                        <img src="{{ url($post->image) }}" alt="Gambar postingan" style="max-height: 720">
                     </div>
                     <!-- Post Title -->
                     <h3>{{ $post->title }}</h3>
@@ -57,13 +57,13 @@
                         </div>
                     </div> -->
                     <!-- Category Widget -->
-                    <div class="widget category">
+                    <div class="widget category-list">
                         <!-- Widget Header -->
                         <h5 class="widget-header">Kategori</h5>
                         <ul class="category-list">
                             @foreach ($category as $cat)
                             @if (count(App\Models\Post::with('BlogCategory')->get()->where('category_id', $cat->id)->where('status', 1)) > 0)
-                                <li><a href="/blog/category/{{ $cat->name }}">{{ $cat->name }} <span class="float-right">({{ count(App\Models\Post::with('BlogCategory')->get()->where('category_id', $cat->id)->where('status', 1)) }})</span></a></li>
+                                <li><a href="/blog/category/{{ $cat->name }}">{{ $cat->name }} <span class="float-right">{{ count(App\Models\Post::with('BlogCategory')->get()->where('category_id', $cat->id)->where('status', 1)) }}</span></a></li>
                             @endif
                             @endforeach
                         </ul>
