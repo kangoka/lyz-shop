@@ -43,22 +43,6 @@ class DashboardController extends Controller
         return view('user.order', compact('data', 'data_pagination', 'category', 'count_waiting', 'count_success','count_complete', 'count_failed'));
     }
 
-    // public function waiting_delivery() {
-    //     $data = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 0)->paginate(5);
-    //     $data_pagination = Checkout::where('payment_status', 'paid')->where('is_delivered', 0)->paginate(5);
-    //     $category = Category::get();
-
-    //     $data_waiting = Checkout::with('Product')->get()->where('payment_status', 'waiting')->where('is_delivered', 0);
-    //     $data_complete = Checkout::with('Product')->get()->where('payment_status', 'paid')->where('is_delivered', 1);
-    //     $data_failed = Checkout::with('Product')->where('user_id', Auth::id())->where('payment_status', 'failed')->orWhere('payment_status', 'expire')->get();
-
-    //     $count_waiting = count($data_waiting);
-    //     $count_success = count($data);
-    //     $count_complete = count($data_complete);
-    //     $count_failed = count($data_failed);
-    //     return view('user.order', compact('data', 'data_pagination', 'category', 'count_waiting', 'count_success','count_complete', 'count_failed'));
-    // }
-
     public function success() {
         $data = Checkout::with('Product')->where('user_id', Auth::id())->where('payment_status', 'paid')->where('is_delivered', 0)->latest()->paginate(5);
         $data_pagination = Checkout::where('user_id', Auth::id())->where('payment_status', 'paid')->where('is_delivered', 0)->latest()->paginate(5);

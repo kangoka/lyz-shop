@@ -48,9 +48,7 @@ class CheckoutController extends Controller
 
     public function store(Store $request, Product $product)
     {
-        // return $request->all();
         $data = $request->all();
-        // return $data;
 
         if (intval($data['quantity']) <= 0) {
             return redirect()->back()->with('errors', ['Kuantitas minimal adalah 1']);
@@ -60,6 +58,9 @@ class CheckoutController extends Controller
             return 'Ngapain?';
         }
 
+        if ($product->field != NULL && $data['field'] == NULL) {
+            return redirect()->back()->with('errors', ['Data harus diisi']);
+        }
         $check = Checkout::where('user_id', Auth::id())->where('payment_status', 'waiting')->get();
         if ((count($check) + 1) > 5) {
             return redirect(route('user.transaction.waiting'))->with('error', ['Kamu memiliki 5 pemesanan yang belum dibayar, silakan menyelesaikan pembayaran untuk pesanan sebelumnya']);
@@ -84,7 +85,6 @@ class CheckoutController extends Controller
         if (!$promo->first()) {
             $price = $checkout->Product->price;
             $price_db = $checkout->Product->price * $checkout->quantity;
-            // dd($price);
         } else {
             $promo = $promo->first();
             $promo_log['code_id'] = $promo->id;
@@ -95,11 +95,8 @@ class CheckoutController extends Controller
             $promo->increment('used');
             $price = $checkout->Product->price * ($promo->discount / 100);
             $price_db = ($checkout->Product->price * $checkout->quantity) * ($promo->discount / 100);
-            // $price = $checkout->Product->price;
-            // dd($price);
         }
         $checkout->price = round($price_db);
-        // dd($checkout->quantity);
         $checkout->midtrans_booking_code = $orderId;
 
         $transaction_details = [

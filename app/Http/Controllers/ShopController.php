@@ -10,8 +10,8 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $product = Product::with('Category')->where('is_listed', 1)->where('stock', '>', 0)->paginate(9);
-        $product_pagination = Product::where('is_listed', 1)->where('stock', '>', 0)->paginate(9);
+        $product = Product::with('Category')->where('is_listed', 1)->where('stock', '>', 0)->orderBy('created_at', 'desc')->paginate(9);
+        $product_pagination = Product::where('is_listed', 1)->where('stock', '>', 0)->orderBy('created_at', 'desc')->paginate(9);
         $category = Category::get();
         $cat_name = 'Semua';
 
@@ -55,7 +55,7 @@ class ShopController extends Controller
         } else if ($sort == 'highest') {
             $product = Product::with('Category')->where('stock', '>', 0)->where('is_listed', 1)->orderBy('price', 'desc')->paginate(9);
             $product_pagination = Product::where('is_listed', 1)->where('stock', '>', 0)->orderBy('price', 'desc')->paginate(9);
-        } else {
+        } else if ($sort == 'newest') {
             $product = Product::with('Category')->where('stock', '>', 0)->where('is_listed', 1)->orderBy('created_at', 'desc')->paginate(9);
             $product_pagination = Product::where('is_listed', 1)->where('stock', '>', 0)->orderBy('created_at', 'desc')->paginate(9);
         }

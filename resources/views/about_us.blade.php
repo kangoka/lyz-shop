@@ -97,14 +97,6 @@
 <section class="section bg-gray">
     <div class="container">
         <div class="row">
-            <!-- <div class="col-lg-3 col-sm-6 my-lg-0 my-3">
-                <div class="counter-content text-center bg-light py-4 rounded">
-                    <i class="fa fa-smile-o d-block"></i>
-                    <span class="counter my-2 d-block" data-count="2314">0</span>
-                    <h5>Happy Customers</h5>
-                    </script>
-                </div>
-            </div> -->
             <div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="counter-content text-center bg-light py-4 rounded">
                     <i class="fa fa-user-o d-block"></i>

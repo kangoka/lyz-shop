@@ -129,6 +129,15 @@
                                                     </div>
                                                 <?php endif ?>
                                             </li>
+                                            @if ($product->first()->field != NULL)
+                                                <div>
+                                                    <label for="field" class=""><strong>{{ $product->first()->field }}</strong></label>
+                                                </div>
+                                                <div> 
+                                                    <input class="border p-1 w-50 my-2 " type="text" name="field" id="field"
+                                                    style="text-align: center" maxlength="255">
+                                                </div>
+                                            @endif
                                             <div class="row">
                                                 <div class="col">
                                                     <label for="quantity" class="col-6"><strong>Jumlah</strong></label>

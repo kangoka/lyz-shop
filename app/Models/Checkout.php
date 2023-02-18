@@ -10,7 +10,7 @@ class Checkout extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'product_id', 'payment_status', 'midtrans_url', 'midtrans_booking_code', 'quantity', 'price', 'is_delivered', 'order_modal'];
+    protected $fillable = ['user_id', 'product_id', 'payment_status', 'midtrans_url', 'midtrans_booking_code', 'field', 'quantity', 'price', 'is_delivered', 'order_modal'];
 
     /**
      * Get the Product that owns the Checkout

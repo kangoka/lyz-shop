@@ -26,6 +26,7 @@
                                     <span><strong class="mr-2">Tangal</strong><time>{{ $datas->created_at }}</time> </span>
                                     <span class="status"><strong class="mr-2">Status</strong>{{ $datas->payment_status ?? '' }}</span>
                                     <span class="location"><strong class="mr-2">Harga</strong>Rp. {{ number_format($datas->Product->price, 0, '', '.') }}</span>
+                                    <span class="location"><strong class="mr-2">Kuantitas</strong>{{ $datas->quantity }}</span>
                                     <span class="location"><strong class="mr-2">User</strong>{{ $datas->User->name }} ({{ $datas->user_id }})</span>
                                 </td>
                                 <td class="action" data-title="Action">
@@ -37,6 +38,33 @@
                                                     <i class="fa fa-paper-plane"></i>
                                                 </a>
                                             </li>
+                                            @if ($datas->field != NULL)
+                                                <div class="modal fade" id="fieldModal{{ $datas->id }}" tabindex="-1"
+                                                    role="dialog" aria-labelledby="fieldModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Field pesanan</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <textarea cols="30" rows="10"
+                                                                    disabled>{{ $datas->field }}</textarea>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Tutup</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <li class="list-inline-item">
+                                                    <a data-toggle="modal" data-target="#fieldModal{{ $datas->id }}"
+                                                        class="view" href="#" disabled>
+                                                        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top"
+                                                            title="Lihat field"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </td>

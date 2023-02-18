@@ -58,12 +58,6 @@
 
                 </div>
 
-                <!-- pagination -->
-                {{-- <div class="pagination justify-content-center">
-                {{ $data->links() }}
-                </div> --}}
-                <!-- pagination -->
-
             </div>
         </div>
         <!-- Row End -->

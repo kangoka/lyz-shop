@@ -16,6 +16,8 @@
                             <input type="number" name="price" class="border p-3 w-100 my-2">
                             <label for="stock">Stok Produk</label>
                             <input type="number" name="stock" class="border p-3 w-100 my-2">
+                            <label for="field">Field</label>
+                            <input type="text" name="field" class="border p-3 w-100 my-2">
                             <label for="category_id">Kategori Produk</label>
                             <br>
                             <select class="form-control" name="category_id" id="category_id">

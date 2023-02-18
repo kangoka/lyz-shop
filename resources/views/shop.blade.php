@@ -98,8 +98,9 @@
             return window.location.replace("/shop/sort/lowest");
         } else if ($(this).val().toLowerCase() == 'highest') {
             return window.location.replace("/shop/sort/highest");
+        } else if ($(this).val().toLowerCase() == 'newest') {
+            return window.location.replace("/shop/sort/newest");
         }
-        window.location.replace("/shop/newest");
     });
 </script>
 @endsection
