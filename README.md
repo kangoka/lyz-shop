@@ -22,7 +22,7 @@ Lyz shop merupakan toko online untuk menjuual produk digital seperti akun game, 
 ## Instalasi
 1. Git clone repository ini
 2. Jalankan `composer install`
-3. Rename .env.example ke .env
+3. Jalankan `cp .env.example .env`
 4. Sesuaikan variabel berikut (baca paling bawah untuk tau bagimana cara mendapatkannya)
 ```
 GOOGLE_CLIENT_ID=
@@ -35,8 +35,9 @@ MIDTRANS_IS_PRODUCTION=false
 MIDTRANS_IS_SANITIZED=false
 MIDTRANS_IS_3DS=false
 ```
-5. Jalankan `php artisan migrate` atau import sql yang sudah saya sediakan agar semua tabel sudah terisi (kecuali tabel users)
-6. Jalankan `php artisan serve`
+5. Jalankan `php artisan key:generate`
+6. Jalankan `php artisan migrate` atau import sql yang sudah saya sediakan agar semua tabel sudah terisi (kecuali tabel users)
+7. Jalankan `php artisan serve`
 
 ## How-to
 1. Cara untuk mendapatkan `GOOGLE_CLIENT_ID` dan `GOOGLE_CLIENT_SECRET` saya tidak akan menjelaskan secara panjang lebar, silakan [baca disini](https://santrikoding.com/tutorial-login-dengan-google-github-di-laravel-9-menggunakan-socialite-7-login-register-dengan-google). Jangan lupa redirect URIs harus sama dengan `GOOGLE_CLIENT_REDIRECT` pada .env
