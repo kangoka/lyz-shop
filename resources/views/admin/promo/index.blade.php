@@ -12,7 +12,7 @@
                 <div class="widget dashboard-container my-adslist">
                     <h3 class="widget-header">Promo
                     <a class="float-right mr-4" data-toggle="tooltip" data-placement="top"
-                                                        title="Tambah Produk" href="{{ route('admin.promo.create') }}">
+                                                        title="Buat Promo" href="{{ route('admin.promo.create') }}">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
                     </h3>

@@ -10,7 +10,7 @@
             <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
                 <!-- Recently Favorited -->
                 <div class="widget dashboard-container my-adslist">
-                    <h3 class="widget-header">Edit Produk</h3>
+                    <h3 class="widget-header">Edit Promo</h3>
                     <form action="{{ url('admin/dashboard/promo/edit/' . $data->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <fieldset class="p-4">

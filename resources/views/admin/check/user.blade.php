@@ -60,7 +60,7 @@
                         }
 
                         if (data[i].is_reviewed == 0) {
-                            rating = 'Belum ada review'
+                            rating = 'Belum ada review <br>'
                             comment = 'Belum ada review'
                         } else {
                             rating = getRating(data[i].review.rating)
